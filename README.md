@@ -37,7 +37,7 @@ The `.vsix` files, download and ratings data are stored in a subfolder of the ma
 root-folder
  |--vsgallery.exe
  |--config.ini
- |--VsixStorage\
+ |--VsixStorage
 	|--atom.xml
     |--First.vsix
 	|--Second.vsix
