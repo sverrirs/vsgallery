@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{569AF97A-4957-421E-8747-FBC5CA09B0E9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>vsgallery</RootNamespace>
+    <AssemblyName>vsgallery</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="INIFileParser, Version=2.4.0.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.4.0\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Topshelf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Topshelf.4.0.3\lib\net452\Topshelf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="FileHelpers\FeedLoader.cs" />
+    <Compile Include="FileHelpers\FileCounter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\AsyncBackgroundProcessor.cs" />
+    <Compile Include="Threading\ThreadingExtensions.cs" />
+    <Compile Include="VsixFeed\UriExtensions.cs" />
+    <Compile Include="VsixFeed\VersionComparer.cs" />
+    <Compile Include="VsixFeed\VsixFeedBuilder.cs" />
+    <Compile Include="VsixFeed\VsixStorageWatcher.cs" />
+    <Compile Include="Vsix\IVsixPackage.cs" />
+    <Compile Include="Vsix\Schemas\PackageManifestSchema.cs" />
+    <Compile Include="Vsix\Schemas\SchemaSets.cs" />
+    <Compile Include="Vsix\Schemas\VsixManifestSchema.cs" />
+    <Compile Include="Vsix\VsixPackage.cs" />
+    <Compile Include="Vsix\VsixPackageFactory.cs" />
+    <Compile Include="Vsix\VsixWithPackageManifest.cs" />
+    <Compile Include="Vsix\VsixWithVsixManifest.cs" />
+    <Compile Include="Webserver\Modules\FeedModule.cs" />
+    <Compile Include="Webserver\Modules\RatingsModule.cs" />
+    <Compile Include="Webserver\SelfHost.cs" />
+    <Compile Include="Webserver\Modules\DownloadModule.cs" />
+    <Compile Include="Webserver\Modules\UploadModule.cs" />
+    <Compile Include="Webserver\SelfHostBootstrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Vsix\Schemas\PackageManifest\PackageManifestSchema.Assets.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Vsix\Schemas\PackageManifest\PackageManifestSchema.Dependencies.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Vsix\Schemas\PackageManifest\PackageManifestSchema.Installation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Vsix\Schemas\PackageManifest\PackageManifestSchema.Metadata.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Vsix\Schemas\PackageManifest\PackageManifestSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Vsix\Schemas\regenerate_classes.bat" />
+    <None Include="Vsix\Schemas\VsixManifest\VSIXManifestSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.2.0.6\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.2.0.6\build\dotnet\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.2.0.6\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.0.6\build\dotnet\Fody.targets'))" />
+  </Target>
+  <Target AfterTargets="AfterBuild;NonWinFodyTarget" Name="CleanReferenceCopyLocalPaths">
+    <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+  </Target>
+</Project>
