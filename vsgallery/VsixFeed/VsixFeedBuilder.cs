@@ -136,7 +136,7 @@ namespace vsgallery.VsixFeed
                 // Only use the first category found, the developer should put the most important category first anyways
                 var category = pkg.Categories.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
                 if( category != null )
-                    item.Categories.Add(new SyndicationCategory(category.Trim()));
+                    item.Categories.Add(new SyndicationCategory(category.Trim().ToTitleCase()));
 
                 if (pkg.TrySaveIcon(packageFolderPath, out Uri iconUri))
                     item.Links.Add(new SyndicationLink(root.MakeRelativeUri(iconUri), "icon", "", "", 0));
