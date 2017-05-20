@@ -5,14 +5,13 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using VISXPrivateGallery.FileHelpers;
-using VISXPrivateGallery.Threading;
-using VISXPrivateGallery.Vsix;
+using vsgallery.FileHelpers;
+using vsgallery.Threading;
+using vsgallery.Vsix;
 
-namespace VISXPrivateGallery.VsixFeed
+namespace vsgallery.VsixFeed
 {
     public class VsixFeedBuilderResults
     {

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IniParser.Model;
 using Nancy.Hosting.Self;
-using VISXPrivateGallery.Vsix;
-using VISXPrivateGallery.VsixFeed;
+using vsgallery.VsixFeed;
 
-namespace VISXPrivateGallery.Webserver
+namespace vsgallery.Webserver
 {
     public class SelfHost
     {

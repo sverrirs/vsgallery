@@ -4,6 +4,10 @@ Ultra simple self-hosted extension gallery for Visual Studio 2010 and newer.
 
 Offering a single click deployment and super easy configuration this solution offers a fully featured solution for the Extension Gallery feature available in Visual Studio.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sverrirs/vsgallery/master/img/extension-manager-01.png" />
+</p
+
 ## Features
 
 * Single self-contained executable. Execute it and you're up and running in seconds!
@@ -28,12 +32,12 @@ The `.vsix` files, download and ratings data are stored in a subfolder of the ma
 
 ## End-points
 
-### GET **/feeds/atom.xml**
+### [GET] /feeds/atom.xml
 This is the main entry point for the feed and serves up the Syndicate-Feed compatible Atom file containing all available extensions on the server. This URL should be used in Visual Studio.
 
 See [How to install into Visual Studio](#howtoinstall) for more information.
 
-### GET **/ratings/{vsix_id}**
+### [GET] /ratings/{vsix_id}
 Retrieves the rating value and vote count for a particular VSIX package by its ID. The return type is JSON.
 
 Example return
@@ -45,13 +49,13 @@ Example return
 }
 ```
 
-### POST/PUT **/ratings/{vsix_id}**
+### [POST/PUT] /ratings/{vsix_id}
 Submitting rating values for a particular VSIX package by its ID. The post payload should be just raw string and contain a single floating point number on the range between [0,5].
 
-### GET **/json**
+### [GET] /json
 JSON feed for the entire package catalog. Same data that is being fed through the atom feed but just in a handier JSON format.
 
-### POST/PUT **/upload***
+### [POST/PUT] /upload
 _Not currently implemented_
 This endpoint will handle uploads of .vsix files to the hosting service.
 

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VISXPrivateGallery.VsixFeed
+namespace vsgallery.VsixFeed
 {
     /// <summary>
     /// Responsible for watching the VSIX storage directory for changes and re-generating the feed file 
