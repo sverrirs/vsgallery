@@ -2,11 +2,11 @@
 
 Ultra simple self-hosted extension gallery for Visual Studio 2010 and newer. 
 
-Offering a single click deployment and super easy configuration this solution offers a fully featured solution for the Extension Gallery feature available in Visual Studio.
+Offering a single click deployment and super easy configuration this solution provides a fully featured solution for the Extension Gallery feature available in Microsoft Visual Studio.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/sverrirs/vsgallery/master/img/extension-manager-01.png" />
-</p
+</p>
 
 ## Features
 
@@ -20,15 +20,29 @@ Offering a single click deployment and super easy configuration this solution of
 
 ## How to install
 
-Please consult [this MSDN document](https://msdn.microsoft.com/en-us/library/hh266746.aspx) on the different options on installing a Private gallery in Visual Studio.
+__Todo__
 
-## How to configure service
+Meanwhile please consult [this MSDN document](https://msdn.microsoft.com/en-us/library/hh266746.aspx) on the different options on installing a Private gallery in Visual Studio.
+
+## How to configure
 All configuration is stored in the `config.ini` file that must sit in the same directory as the main service executable.
+__Todo__
 
 ## How it works
 The service itself _just works_ and is a completely self-contained hosting solution.
 
 The `.vsix` files, download and ratings data are stored in a subfolder of the main service executable (this subfolder is configurable). This makes taking backups and moving the service between machines as the entire folder contains the entire service current state.
+
+```
+root-folder
+ |--vsgallery.exe
+ |--config.ini
+ |--VsixStorage\
+	|--atom.xml
+    |--First.vsix
+	|--Second.vsix
+	|--AndSoForth.vsix
+```
 
 ## End-points
 
