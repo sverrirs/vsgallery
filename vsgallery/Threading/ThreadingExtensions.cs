@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VISXPrivateGallery.Threading
+namespace vsgallery.Threading
 {
     /// <summary>
     /// See: http://stackoverflow.com/questions/18881808/raising-events-on-separate-thread

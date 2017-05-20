@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Nancy;
-using Nancy.Bootstrapper;
+﻿using Nancy;
 using Nancy.Conventions;
 using Nancy.Diagnostics;
 using Nancy.TinyIoc;
 
-namespace VISXPrivateGallery.Webserver
+namespace vsgallery.Webserver
 {
     public class SelfHostBootstrapper : DefaultNancyBootstrapper
     {

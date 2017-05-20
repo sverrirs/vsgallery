@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using VISXPrivateGallery.Vsix.Schemas;
+using vsgallery.Vsix.Schemas;
 
-namespace VISXPrivateGallery.Vsix
+namespace vsgallery.Vsix
 {
     public sealed class VsixWithPackageManifest : VsixPackage
     {

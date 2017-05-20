@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VISXPrivateGallery.Vsix
+namespace vsgallery.Vsix
 {
     public interface IVsixPackage
     {

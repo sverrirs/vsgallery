@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Nancy;
+﻿using Nancy;
 
-namespace VISXPrivateGallery.Webserver.Modules
+namespace vsgallery.Webserver.Modules
 {
     public class UploadModule : NancyModule
     {
@@ -15,15 +10,14 @@ namespace VISXPrivateGallery.Webserver.Modules
         {
             _configuration = configuration;
 
-            Get["/upload"] = parameters =>
-            {
-                return Response.AsText("Upload form", "text/html");
-            };
+            Post["/upload"] = HandleExtensionUploadRequest;
+            Put["/upload"] = HandleExtensionUploadRequest;
+        }
 
-            Post["/upload/save"] = parameters =>
-            {
-                return Response.AsJson("ok");
-            };
+        private Response HandleExtensionUploadRequest(dynamic parameters)
+        {
+            // TODO: Parse the submitted file attachment and write to the vsix folder!
+            return new Response {StatusCode = HttpStatusCode.NotImplemented};
         }
     }
 }

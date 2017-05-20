@@ -1,6 +1,4 @@
-using System.Linq;
-
-namespace VISXPrivateGallery.Vsix
+namespace vsgallery.Vsix
 {
     public sealed class VsixWithVsixManifest : VsixPackage
     {

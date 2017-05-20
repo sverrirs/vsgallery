@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 using Nancy;
-using Nancy.Responses;
 using Newtonsoft.Json;
-using VISXPrivateGallery.FileHelpers;
+using vsgallery.FileHelpers;
 
-namespace VISXPrivateGallery.Webserver.Modules
+namespace vsgallery.Webserver.Modules
 {
     public class FeedModule : NancyModule
     {

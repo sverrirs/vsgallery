@@ -14,7 +14,7 @@
 
 using System.Xml.Serialization;
 
-namespace VISXPrivateGallery.Vsix.Schemas {
+namespace vsgallery.Vsix.Schemas {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]

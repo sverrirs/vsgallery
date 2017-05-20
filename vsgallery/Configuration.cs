@@ -2,7 +2,7 @@
 using IniParser;
 using IniParser.Model;
 
-namespace VISXPrivateGallery
+namespace vsgallery
 {
     public abstract class BaseConfiguration
     {

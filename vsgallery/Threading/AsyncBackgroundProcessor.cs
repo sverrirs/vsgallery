@@ -3,7 +3,7 @@ using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VISXPrivateGallery.Threading
+namespace vsgallery.Threading
 {
     /// <summary>
     /// Base class for the progress argument classes used by the <see cref="AsyncBackgroundProcessor{TResult,TProgressEventArgs,TProcessArgs}"/>

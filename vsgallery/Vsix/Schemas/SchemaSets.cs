@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Schema;
 
-namespace VISXPrivateGallery.Vsix.Schemas
+namespace vsgallery.Vsix.Schemas
 {
     public static class SchemaSets
     {

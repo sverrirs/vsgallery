@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
 
-namespace VISXPrivateGallery.Vsix
+namespace vsgallery.Vsix
 {
     public abstract class VsixPackage : IVsixPackage
     {

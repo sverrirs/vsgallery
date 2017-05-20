@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nancy;
 using Nancy.Extensions;
-using VISXPrivateGallery.FileHelpers;
+using vsgallery.FileHelpers;
 
-namespace VISXPrivateGallery.Webserver.Modules
+namespace vsgallery.Webserver.Modules
 {
     public class RatingsModule : NancyModule
     {

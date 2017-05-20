@@ -4,10 +4,10 @@ using System.IO.Compression;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using VISXPrivateGallery.Vsix.Schemas;
-using VISXPrivateGallery.VsixFeed;
+using vsgallery.Vsix.Schemas;
+using vsgallery.VsixFeed;
 
-namespace VISXPrivateGallery.Vsix
+namespace vsgallery.Vsix
 {
     public sealed class VsixPackageFactory
     {

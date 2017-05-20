@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IniParser;
-using IniParser.Model;
-using Topshelf;
-using VISXPrivateGallery.Webserver;
+﻿using Topshelf;
+using vsgallery.Webserver;
 
-namespace VISXPrivateGallery
+namespace vsgallery
 {
     class Program
     {
