@@ -4,7 +4,7 @@ using Nancy;
 using Nancy.Extensions;
 using vsgallery.FileHelpers;
 
-namespace vsgallery.Webserver.Modules
+namespace vsgallery.Webserver.ApiModules
 {
     public class RatingsModule : NancyModule
     {
@@ -14,9 +14,9 @@ namespace vsgallery.Webserver.Modules
         {
             _configuration = configuration;
 
-            Get["/ratings/{id}"] = HandleGetRatingsRequest;
-            Post["/ratings/{id}"] = HandleSetRatingsRequest;
-            Put["/ratings/{id}"] = HandleSetRatingsRequest;
+            Get["/api/ratings/{id}"] = HandleGetRatingsRequest;
+            Post["/api/ratings/{id}"] = HandleSetRatingsRequest;
+            Put["/api/ratings/{id}"] = HandleSetRatingsRequest;
         }
 
         private Response HandleGetRatingsRequest(dynamic parameters)

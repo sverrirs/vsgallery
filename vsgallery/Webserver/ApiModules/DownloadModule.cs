@@ -4,7 +4,7 @@ using Nancy;
 using Nancy.Responses;
 using vsgallery.FileHelpers;
 
-namespace vsgallery.Webserver.Modules
+namespace vsgallery.Webserver.ApiModules
 {
     public class DownloadModule: NancyModule
     {
@@ -14,7 +14,7 @@ namespace vsgallery.Webserver.Modules
             _configuration = configuration;
 
             // Download route for the vsix files
-            Get["download/{id}/{vsix}"] = HandleDownloadRequest;
+            Get["/api/download/{id}/{vsix}"] = HandleDownloadRequest;
         }
 
         private Response HandleDownloadRequest(dynamic parameters)

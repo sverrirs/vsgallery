@@ -130,7 +130,7 @@ namespace vsgallery.VsixFeed
                 // through the DownloadModule for tracking, if tracking is off then serve the static files directly 
                 // from the file-system
                 item.Content = SyndicationContent.CreateUrlContent(_config.Gallery.TrackDownloads 
-                                                                   ? new Uri($"/download/{pkg.Id}/{pkgFileName}", UriKind.Relative) 
+                                                                   ? new Uri($"/api/download/{pkg.Id}/{pkgFileName}", UriKind.Relative) 
                                                                    : root.MakeRelativeUri(new Uri(pkg.File)), "application/octet-stream");
 
                 // Only use the first category found, the developer should put the most important category first anyways

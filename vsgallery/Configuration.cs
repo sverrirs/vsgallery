@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.CodeDom;
+using System.ComponentModel;
+using System.IO;
+using System.Net.Http.Headers;
 using IniParser;
 using IniParser.Model;
 
@@ -6,11 +10,36 @@ namespace vsgallery
 {
     public abstract class BaseConfiguration
     {
-        protected KeyDataCollection Data { get; }
+        private KeyDataCollection Data { get; }
 
         protected BaseConfiguration(KeyDataCollection data)
         {
             Data = data;
+        }
+
+        protected T Get<T>(string keyName) => Get(keyName, default(T));
+
+        protected T Get<T>(string keyName, T defaultValue)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyName) || !Data.ContainsKey(keyName))
+                    return defaultValue;
+
+                // Extract the raw data
+                var keyValue = Data[keyName];
+
+                // Don't do any conversion for null value!
+                if (keyValue == null)
+                    return defaultValue;
+
+                var converted = Convert.ChangeType(Data[keyName], typeof(T));
+                return converted is T ? (T)converted : defaultValue;
+            }
+            catch( Exception ex)
+            {
+                throw new FormatException("Could not convert value for key '" + keyName + "' in the config.ini file. Please correct your configuration and run the program again.", ex);
+            }
         }
     }
 
@@ -45,28 +74,30 @@ namespace vsgallery
     public class GalleryConfiguration : BaseConfiguration, IGalleryConfiguration
     {
         public GalleryConfiguration(KeyDataCollection data) : base(data){}
-        public string Guid => Data[nameof(Guid)];
-        public string Title => Data[nameof(Title)];
-        public string Description => Data[nameof(Description)];
-        public bool TrackDownloads => bool.Parse(Data[nameof(TrackDownloads)]);
-        public bool TrackRatings => bool.Parse(Data[nameof(TrackRatings)]);
+        public string Guid => Get<string>(nameof(Guid));
+        public string Title => Get<string>(nameof(Title));
+        public string Description => Get<string>(nameof(Description));
+        public bool TrackDownloads => Get<bool>(nameof(TrackDownloads));
+        public bool TrackRatings => Get<bool>(nameof(TrackRatings));
     }
 
 
     public class InstallConfiguration : BaseConfiguration, IInstallConfiguration
     {
-        public string Guid => Data[nameof(Guid)];
-        public int Priority => int.Parse(Data[nameof(Priority)]);
-        public string DisplayName => Data[nameof(DisplayName)];
-        public string Description => Data[nameof(Description)];
-        public string ServiceName => Data[nameof(ServiceName)];
+        public string Guid => Get<string>(nameof(Guid));
+        public int Priority => Get<int>(nameof(Priority));
+        public string DisplayName => Get<string>(nameof(DisplayName));
+        public string Description => Get<string>(nameof(Description));
+        public string ServiceName => Get<string>(nameof(ServiceName));
 
         public InstallConfiguration(KeyDataCollection data) : base(data) { }
     }
 
     public class StorageConfiguration : BaseConfiguration, IStorageConfiguration
     {
-        public string VsixStorageDirectory => Data[nameof(VsixStorageDirectory)];
+        public string VsixStorageDirectory => Get<string>(nameof(VsixStorageDirectory));
+        public string UploadDirectory => Get<string>(nameof(UploadDirectory));
+        public string UploadMaxFileSize => Get<string>(nameof(UploadMaxFileSize));
 
         public StorageConfiguration(KeyDataCollection data) : base(data) { }
     }
@@ -74,13 +105,13 @@ namespace vsgallery
 
     public class HostConfiguration : BaseConfiguration, IHostConfiguration
     {
-        public string HostName => Data[nameof(HostName)];
+        public string HostName => Get<string>(nameof(HostName));
 
-        public string Port => Data[nameof(Port)];
+        public int Port => Get<int>(nameof(Port));
 
-        public bool UseSSL => bool.Parse(Data[nameof(UseSSL)]);
+        public bool UseSSL => Get<bool>(nameof(UseSSL));
 
-        public bool Diagnostics => bool.Parse(Data[nameof(Diagnostics)]);
+        public bool Diagnostics => Get<bool>(nameof(Diagnostics));
 
         public HostConfiguration(KeyDataCollection data) : base(data) { }
     }
@@ -89,27 +120,24 @@ namespace vsgallery
     public interface IConfiguration
     {
         IHostConfiguration Hosting { get; }
-
         IStorageConfiguration Storage { get; }
-
         IInstallConfiguration Install { get; }
-
         IGalleryConfiguration Gallery { get; }
     }
 
     public interface IStorageConfiguration
     {
         string VsixStorageDirectory { get; }
+        string UploadDirectory { get; }
+        string UploadMaxFileSize { get; }
+
     }
 
     public interface IHostConfiguration
     {
         string HostName { get; }
-
-        string Port { get; }
-
+        int Port { get; }
         bool UseSSL { get; }
-
         bool Diagnostics { get; }
     }
 

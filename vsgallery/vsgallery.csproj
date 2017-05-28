@@ -82,11 +82,11 @@
     <Compile Include="Vsix\VsixPackageFactory.cs" />
     <Compile Include="Vsix\VsixWithPackageManifest.cs" />
     <Compile Include="Vsix\VsixWithVsixManifest.cs" />
-    <Compile Include="Webserver\Modules\FeedModule.cs" />
-    <Compile Include="Webserver\Modules\RatingsModule.cs" />
+    <Compile Include="Webserver\ApiModules\FeedModule.cs" />
+    <Compile Include="Webserver\ApiModules\RatingsModule.cs" />
     <Compile Include="Webserver\SelfHost.cs" />
-    <Compile Include="Webserver\Modules\DownloadModule.cs" />
-    <Compile Include="Webserver\Modules\UploadModule.cs" />
+    <Compile Include="Webserver\ApiModules\DownloadModule.cs" />
+    <Compile Include="Webserver\ApiModules\UploadModule.cs" />
     <Compile Include="Webserver\SelfHostBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +118,10 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Uploading\" />
+    <Folder Include="Webserver\UiModules\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.6\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.2.0.6\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

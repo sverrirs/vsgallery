@@ -4,7 +4,7 @@ using Nancy;
 using Newtonsoft.Json;
 using vsgallery.FileHelpers;
 
-namespace vsgallery.Webserver.Modules
+namespace vsgallery.Webserver.ApiModules
 {
     public class FeedModule : NancyModule
     {
@@ -14,7 +14,7 @@ namespace vsgallery.Webserver.Modules
         {
             _configuration = configuration;
 
-            Get["/json"] = HandleJsonFeedRequest;
+            Get["/api/json"] = HandleJsonFeedRequest;
         }
 
         private Response HandleJsonFeedRequest(dynamic parameters)

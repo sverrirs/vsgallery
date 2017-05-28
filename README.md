@@ -49,7 +49,7 @@ root-folder
 ### [GET] /feeds/atom.xml
 This is the main entry point for the feed and serves up the Syndicate-Feed compatible Atom file containing all available extensions on the server. This URL should be used in Visual Studio.
 
-See [How to install into Visual Studio](#howtoinstall) for more information.
+See [How to install into Visual Studio](#how-to-install) for more information.
 
 ### [GET] /ratings/{vsix_id}
 Retrieves the rating value and vote count for a particular VSIX package by its ID. The return type is JSON.
@@ -70,8 +70,7 @@ Submitting rating values for a particular VSIX package by its ID. The post paylo
 JSON feed for the entire package catalog. Same data that is being fed through the atom feed but just in a handier JSON format.
 
 ### [POST/PUT] /upload
-_Not currently implemented_
-This endpoint will handle uploads of .vsix files to the hosting service.
+This endpoint accepts uploads of .vsix files to the hosting service.
 
 ## The shoulders of giants
 
@@ -86,3 +85,5 @@ This project is made possible by the fantastic work done by the following projec
 [Ini-Parser](https://github.com/rickyah/ini-parser): Configuration ini file parsing
 
 [Costura](https://github.com/Fody/Costura/): Assembly merging
+
+[Nancy FileUploads](https://github.com/bytefish/NancyFileUpload): Async uploading of files
