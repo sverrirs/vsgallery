@@ -1,4 +1,6 @@
-﻿using Topshelf;
+﻿using System;
+using System.IO;
+using Topshelf;
 using vsgallery.Webserver;
 
 namespace vsgallery
@@ -10,7 +12,7 @@ namespace vsgallery
             // Ensure global single instance
 
             // Load the ini configuration file
-            IConfiguration config = new Configuration("config.ini");
+            IConfiguration config = new Configuration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.ini"));
 
             HostFactory.Run(x =>
             {
