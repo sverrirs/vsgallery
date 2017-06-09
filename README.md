@@ -39,19 +39,25 @@ root-folder
   |--config.ini
   |--VsixStorage
     |--atom.xml
+
     |--First.vsix
+
 	|--Second.vsix
+
 	|--AndSoForth.vsix
 ```
 
-## End-points
+## Retrieving data
 
 ### [GET] /feeds/atom.xml
 This is the main entry point for the feed and serves up the Syndicate-Feed compatible Atom file containing all available extensions on the server. This URL should be used in Visual Studio.
 
 See [How to install into Visual Studio](#how-to-install) for more information.
 
-### [GET] /ratings/{vsix_id}
+### [GET] /api/json
+JSON feed for the entire package catalog. Same data that is being fed through the atom feed but just in a handier JSON format.
+
+### [GET] /api/ratings/{vsix_id}
 Retrieves the rating value and vote count for a particular VSIX package by its ID. The return type is JSON.
 
 Example return
@@ -63,18 +69,19 @@ Example return
 }
 ```
 
-### [POST/PUT] /ratings/{vsix_id}
+## Writing data
+You can submit ratings for existing packages and upload new packages to the system.
+
+### [POST/PUT] /api/ratings/{vsix_id}
 Submitting rating values for a particular VSIX package by its ID. The post payload should be just raw string and contain a single floating point number on the range between [0,5].
 
-### [GET] /json
-JSON feed for the entire package catalog. Same data that is being fed through the atom feed but just in a handier JSON format.
+### [POST/PUT] /api/upload
+This endpoint accepts uploads of one or more .vsix files to the hosting service.
 
-### [POST/PUT] /upload
-This endpoint accepts uploads of .vsix files to the hosting service.
 
-## The shoulders of giants
+## Thanks to
 
-This project is made possible by the fantastic work done by the following projects.
+This work is made possible by the fantastic job done on the following projects.
 
 [Topshelf](https://github.com/Topshelf/Topshelf): Windows Service Hosting
 
@@ -85,5 +92,3 @@ This project is made possible by the fantastic work done by the following projec
 [Ini-Parser](https://github.com/rickyah/ini-parser): Configuration ini file parsing
 
 [Costura](https://github.com/Fody/Costura/): Assembly merging
-
-[Nancy FileUploads](https://github.com/bytefish/NancyFileUpload): Async uploading of files
