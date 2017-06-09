@@ -72,6 +72,12 @@ namespace vsgallery.Vsix
             using (var zip = ZipFile.OpenRead(File))
             {
                 var entry = zip.GetEntry(entryName);
+                // Entry could be null because spaces in filenames in a VSIX are encoded to '%20', so retry with encoded entryName
+                if (entry == null)
+                {
+                    entryName = Uri.EscapeDataString(entryName);
+                    entry = zip.GetEntry(entryName);
+                }
                 if (entry != null)
                 {
                     var itemPath = Path.Combine(destinationFolder, entryName);
