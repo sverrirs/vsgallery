@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Nancy;
+using Nancy.Helpers;
 using Nancy.Responses;
 using vsgallery.FileHelpers;
 
@@ -19,7 +20,7 @@ namespace vsgallery.Webserver.ApiModules
 
         private Response HandleDownloadRequest(dynamic parameters)
         {
-            string vsixName = parameters.vsix;
+            string vsixName = HttpUtility.UrlDecode(parameters.vsix);
             string vsixId = parameters.id;
             string vsixFilePath = Path.Combine(Environment.CurrentDirectory, _configuration.Storage.VsixStorageDirectory, vsixName);
 

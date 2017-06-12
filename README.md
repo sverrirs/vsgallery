@@ -33,19 +33,16 @@ The service itself _just works_ and is a completely self-contained hosting solut
 
 The `.vsix` files, download and ratings data are stored in a subfolder of the main service executable (this subfolder is configurable). This makes taking backups and moving the service between machines as the entire folder contains the entire service current state.
 
-```
+<pre>
 root-folder
   |--vsgallery.exe
   |--config.ini
   |--VsixStorage
     |--atom.xml
-
     |--First.vsix
-
 	|--Second.vsix
-
 	|--AndSoForth.vsix
-```
+</pre>
 
 ## Retrieving data
 

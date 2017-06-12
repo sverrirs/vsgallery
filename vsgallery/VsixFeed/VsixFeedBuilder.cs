@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
+using Nancy.Helpers;
 using vsgallery.FileHelpers;
 using vsgallery.Threading;
 using vsgallery.Vsix;
@@ -66,7 +68,7 @@ namespace vsgallery.VsixFeed
 
             var feed = CreateNewFeed();
             AddPackages(feed, rootDirectory, imageRoot, packages);
-            WriteAtomFeed(feed, atomFeedFilePath);
+            AtomFeedHelper.WriteAtomFeed(atomFeedFilePath, feed);
 
             return feed;
         }
@@ -102,6 +104,10 @@ namespace vsgallery.VsixFeed
             for (var pkgIdx = 0; pkgIdx < orderedPackages.Length; pkgIdx++)
             {
                 var pkg = orderedPackages[pkgIdx];
+
+                // Possibly normalize the file name for the package, 
+                // visual studio does not like special characters in the file download urls so it is best to clear these out
+                pkg.File = FileCleaner.NormalizePackageFileName(pkg.File);
                 var pkgFileName = Path.GetFileName(pkg.File);
 
                 OnBackgroundProgress(new VsixFeedBuilderProgressArgs(pkgIdx + 1, orderedPackages.Length, pkgFileName));
@@ -204,22 +210,6 @@ namespace vsgallery.VsixFeed
             {
                 item.ElementExtensions.Add(reader);
             }
-        }
-
-        private void WriteAtomFeed(SyndicationFeed feed, string filePath)
-        {
-            var sb = new StringBuilder();
-
-            using (var stringStream = new StringWriter(sb))
-            {
-                using (var writer = XmlWriter.Create(stringStream))
-                {
-                    var formatter = new Atom10FeedFormatter(feed);
-                    formatter.WriteTo(writer);
-                }
-            }
-
-            File.WriteAllText(filePath, XElement.Parse(sb.ToString()).ToString());
         }
     }
 }

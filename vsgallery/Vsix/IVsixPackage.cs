@@ -6,7 +6,7 @@ namespace vsgallery.Vsix
     {
         string Description { get; }
         string DisplayName { get; }
-        string File { get; }
+        string File { get; set; }
         string Id { get; }
         string Publisher { get; }
         string Version { get; }

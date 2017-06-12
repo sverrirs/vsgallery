@@ -63,7 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="FileHelpers\FeedLoader.cs" />
+    <Compile Include="FileHelpers\AtomFeedHelper.cs" />
+    <Compile Include="FileHelpers\FileCleaner.cs" />
     <Compile Include="FileHelpers\FileCounter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

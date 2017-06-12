@@ -20,7 +20,7 @@ namespace vsgallery.Webserver.ApiModules
         private Response HandleJsonFeedRequest(dynamic parameters)
         {
             var atomFilePath = Path.Combine(Environment.CurrentDirectory, _configuration.Storage.VsixStorageDirectory, "atom.xml");
-            var feed = FeedLoader.LoadAtomFeed(atomFilePath);
+            var feed = AtomFeedHelper.LoadAtomFeed(atomFilePath);
 
             // Return the feed or no content error if nothing is found
             return feed == null 

@@ -13,7 +13,7 @@ namespace vsgallery.Vsix
 
         public abstract string DisplayName { get; }
 
-        public string File { get; }
+        public string File { get; set; }
 
         public abstract string Id { get; }
 
