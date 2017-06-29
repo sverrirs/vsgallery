@@ -47,8 +47,8 @@ root-folder
   |--VsixStorage
     |--atom.xml
     |--First.vsix
-  |--Second.vsix
-  |--AndSoForth.vsix
+    |--Second.vsix
+    |--AndSoForth.vsix
 </pre>
 
 ## The vsgallery API
