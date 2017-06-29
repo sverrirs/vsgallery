@@ -62,7 +62,7 @@ This is the main entry point for the VSIX feed and serves up the Syndicate-Feed 
 
 **This is the URL endpoint that should be used in Visual Studio.**
 
-See [How to install into Visual Studio](#how-to-install) for more information.
+See [How to install into Visual Studio](#how-to-install-into-visual-studio) for more information.
 
 ### [GET] /api/ratings/{vsix_id}
 Retrieves the rating value and vote count for a particular VSIX package by its ID. 
