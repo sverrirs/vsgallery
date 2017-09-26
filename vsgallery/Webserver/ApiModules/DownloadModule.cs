@@ -9,8 +9,8 @@ namespace vsgallery.Webserver.ApiModules
 {
     public class DownloadModule: NancyModule
     {
-        private readonly IConfiguration _configuration;
-        public DownloadModule(IConfiguration configuration)
+        private readonly IStorageConfiguration _configuration;
+        public DownloadModule(IStorageConfiguration configuration)
         {
             _configuration = configuration;
 
@@ -22,10 +22,10 @@ namespace vsgallery.Webserver.ApiModules
         {
             string vsixName = HttpUtility.UrlDecode(parameters.vsix);
             string vsixId = parameters.id;
-            string vsixFilePath = Path.Combine(Environment.CurrentDirectory, _configuration.Storage.VsixStorageDirectory, vsixName);
+            string vsixFilePath = Path.Combine(Environment.CurrentDirectory, _configuration.VsixStorageDirectory, vsixName);
 
             // Count the download
-            bool refreshFile = FileCounter.SetDownloadCount(vsixId, vsixName, _configuration);
+            bool refreshFile = FileCounter.SetDownloadCount(vsixId, _configuration);
 
             // Serve the requested VSIX file back to the caller
             Response fileResponse = null;

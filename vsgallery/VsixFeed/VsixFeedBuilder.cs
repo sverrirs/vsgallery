@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
-using Nancy.Helpers;
 using vsgallery.FileHelpers;
 using vsgallery.Threading;
 using vsgallery.Vsix;
@@ -37,11 +34,13 @@ namespace vsgallery.VsixFeed
 
     public class VsixFeedBuilder : AsyncBackgroundProcessor<VsixFeedBuilderResults, VsixFeedBuilderProgressArgs, string>
     {
-        private readonly IConfiguration _config;
+        private readonly IStorageConfiguration _configStorage;
+        private readonly IGalleryConfiguration _configGallery;
 
-        public VsixFeedBuilder(IConfiguration config)
+        public VsixFeedBuilder(IStorageConfiguration storageConfig, IGalleryConfiguration galleryConfig)
         {
-            _config = config;
+            _configStorage = storageConfig;
+            _configGallery = galleryConfig;
         }
 
         protected override Func<VsixFeedBuilderResults> CreateAsyncProcess(string vsixStoragePath, CancellationToken cancellationToken)
@@ -78,10 +77,10 @@ namespace vsgallery.VsixFeed
             // Create a new feed and set the GUID
             return new SyndicationFeed
             {
-                Id = (_config.Gallery.Guid ?? Guid.NewGuid().ToString("D")).ToUpper(),
-                Title = new TextSyndicationContent(_config.Gallery.Title),
+                Id = (_configGallery.Guid ?? Guid.NewGuid().ToString("D")).ToUpper(),
+                Title = new TextSyndicationContent(_configGallery.Title),
                 Generator = "VisxPrivateGallery (https://github.com/sverrirs/visxgallery)",
-                Description = new TextSyndicationContent(_config.Gallery.Description, TextSyndicationContentKind.Plaintext),
+                Description = new TextSyndicationContent(_configGallery.Description, TextSyndicationContentKind.Plaintext),
                 LastUpdatedTime = DateTimeOffset.Now
             };
         }
@@ -128,14 +127,14 @@ namespace vsgallery.VsixFeed
                 Directory.CreateDirectory(packageFolderPath);
 
                 // Create a mapping between the vsix id and the file name by placing a simple file in the root
-                FileCounter.SetIdToVsixFile(pkg.Id, pkgFileName, _config);
+                FileCounter.SetIdToVsixFile(pkg.Id, pkgFileName, _configStorage);
 
                 item.Authors.Add(new SyndicationPerson { Name = pkg.Publisher });
 
                 // If the configuration specifies that the downloads should be tracked then route the downloads
                 // through the DownloadModule for tracking, if tracking is off then serve the static files directly 
                 // from the file-system
-                item.Content = SyndicationContent.CreateUrlContent(_config.Gallery.TrackDownloads 
+                item.Content = SyndicationContent.CreateUrlContent(_configGallery.TrackDownloads 
                                                                    ? new Uri($"/api/download/{pkg.Id}/{pkgFileName}", UriKind.Relative) 
                                                                    : root.MakeRelativeUri(new Uri(pkg.File)), "application/octet-stream");
 
@@ -159,7 +158,7 @@ namespace vsgallery.VsixFeed
                     item.Links.Add(new SyndicationLink(new Uri(pkg.ReleaseNotes), "releasenotes", "", "", 0));
 
                 // Add the extensions to the item
-                AddExtensions(item, pkg, packageFolderPath);
+                AddExtensions(item, pkg);
 
                 // Now save the item 
                 items.Add(item);
@@ -170,14 +169,14 @@ namespace vsgallery.VsixFeed
             feed.Items = items;
         }
 
-        private void AddExtensions(SyndicationItem item, IVsixPackage pkg, string packageFolderPath)
+        private void AddExtensions(SyndicationItem item, IVsixPackage pkg)
         {
             var ns = XNamespace.Get("http://schemas.microsoft.com/developer/vsx-syndication-schema/2010");
             var xsi = XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance");
 
             // If enabled then fetch the download count for the file, otherwise don't specify it
-            var dlCountElement = new XElement(ns + "DownloadCount", _config.Gallery.TrackDownloads 
-                                    ? (object) FileCounter.GetDownloadCount(pkg.Id, Path.GetFileName(pkg.File), _config) 
+            var dlCountElement = new XElement(ns + "DownloadCount", _configGallery.TrackDownloads 
+                                    ? (object) FileCounter.GetDownloadCount(pkg.Id, _configStorage) 
                                     : new XAttribute(xsi + "nil", "true"));
 
             // Default is not set
@@ -185,10 +184,10 @@ namespace vsgallery.VsixFeed
             var ratingCountElement = new XElement(ns + "RatingCount", new XAttribute(xsi + "nil", "true"));
 
             // If ratings are enabled then attempt to resolve them
-            if (_config.Gallery.TrackRatings)
+            if (_configGallery.TrackRatings)
             {
                 // Only apply ratings if there are any
-                var rating = FileCounter.GetRating(pkg.Id, _config);
+                var rating = FileCounter.GetRating(pkg.Id, _configStorage);
                 if (rating != null && rating.Item2 > 0)
                 {
                     ratingElement = new XElement(ns + "Rating", rating.Item1);
