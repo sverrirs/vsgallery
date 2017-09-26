@@ -15,10 +15,10 @@ namespace vsgallery.VsixFeed
         private readonly object _lock = new object();
         private bool _isRunning = false;
 
-        public VsixStorageWatcher(string vsixDirectory, IConfiguration config)
+        public VsixStorageWatcher(string vsixDirectory, IStorageConfiguration storageConfig, IGalleryConfiguration galleryConfig)
         {
             _vsixDirectory = vsixDirectory;
-            _feedBuilder = new VsixFeedBuilder(config);
+            _feedBuilder = new VsixFeedBuilder(storageConfig, galleryConfig);
             _feedBuilder.BackgroundProgress += FeedBuilderOnBackgroundProgress;
         }
 
@@ -29,10 +29,12 @@ namespace vsgallery.VsixFeed
 
         public void Start()
         {
-            _fsWatcher = new FileSystemWatcher();
-            _fsWatcher.Path = _vsixDirectory;
-            _fsWatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
-            _fsWatcher.Filter = "*.vsix";
+            _fsWatcher = new FileSystemWatcher
+            {
+                Path = _vsixDirectory,
+                NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite,
+                Filter = "*.vsix"
+            };
             _fsWatcher.Created += OnDirectoryChanged;
             _fsWatcher.Deleted += OnDirectoryChanged;
             _fsWatcher.Changed += OnDirectoryChanged;

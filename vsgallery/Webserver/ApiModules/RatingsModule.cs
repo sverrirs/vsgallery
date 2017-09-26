@@ -8,9 +8,9 @@ namespace vsgallery.Webserver.ApiModules
 {
     public class RatingsModule : NancyModule
     {
-        private readonly IConfiguration _configuration;
+        private readonly IStorageConfiguration _configuration;
 
-        public RatingsModule(IConfiguration configuration)
+        public RatingsModule(IStorageConfiguration configuration)
         {
             _configuration = configuration;
 

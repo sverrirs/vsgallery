@@ -33,7 +33,7 @@ namespace vsgallery.Webserver
 
             // Create the VSIX feed
             _vsixStoragePath = Path.Combine(Environment.CurrentDirectory, _config.Storage.VsixStorageDirectory);
-            _vsixStorageWatcher = new VsixStorageWatcher(_vsixStoragePath, _config);
+            _vsixStorageWatcher = new VsixStorageWatcher(_vsixStoragePath, _config.Storage, _config.Gallery);
             _vsixStorageWatcher.Start();
             _nancyHost.Start();
         }

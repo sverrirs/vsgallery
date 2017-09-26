@@ -11,13 +11,13 @@ namespace vsgallery.FileHelpers
         private static readonly ReaderWriterLockSlim ratingsFileLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
 
 
-        public static bool SetIdToVsixFile(string vsixId, string vsixFile, IConfiguration configuration)
+        public static bool SetIdToVsixFile(string vsixId, string vsixFile, IStorageConfiguration configuration)
         {
             vsixInfoFileLock.EnterWriteLock();
             // Attempt to find the file, if exists then read the only file in it into memory
             try
             {
-                string vsixMarkPath = Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, "VSIXData", vsixId, "info.txt");
+                string vsixMarkPath = Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, "VSIXData", vsixId, "info.txt");
 
                 // Increment download count and write to the file again
                 File.WriteAllText(vsixMarkPath, vsixFile);
@@ -37,18 +37,18 @@ namespace vsgallery.FileHelpers
             }
         }
 
-        public static string GetVsixFileFromId(string vsixId, IConfiguration configuration)
+        public static string GetVsixFileFromId(string vsixId, IStorageConfiguration configuration)
         {
             vsixInfoFileLock.EnterReadLock();
             try
             {
-                string vsixMarkPath = Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, "VSIXData", vsixId, "info.txt");
+                string vsixMarkPath = Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, "VSIXData", vsixId, "info.txt");
 
                 if (!File.Exists(vsixMarkPath))
                     return null;
 
                 var fileName = File.ReadAllText(vsixMarkPath);
-                return Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, fileName);
+                return Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, fileName);
             }
             catch (Exception e)
             {
@@ -61,15 +61,15 @@ namespace vsgallery.FileHelpers
             }
         }
 
-        public static bool SetDownloadCount(string vsixId, string vsixFile, IConfiguration configuration)
+        public static bool SetDownloadCount(string vsixId, IStorageConfiguration configuration)
         {
             downloadCountFileLock.EnterWriteLock();
             // Attempt to find the file, if exists then read the only file in it into memory
             try
             {
-                string vsixDownloadCountPath = Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, "VSIXData", vsixId, "downloads.txt");
+                string vsixDownloadCountPath = Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, "VSIXData", vsixId, "downloads.txt");
 
-                int downloadCount = CoreGetDownloadCount(vsixId, vsixFile, configuration);
+                int downloadCount = CoreGetDownloadCount(vsixId, configuration);
 
                 // Increment download count and write to the file again
                 File.WriteAllText(vsixDownloadCountPath, (++downloadCount).ToString());
@@ -89,12 +89,12 @@ namespace vsgallery.FileHelpers
             }
         }
 
-        public static int GetDownloadCount(string vsixId, string vsixFile, IConfiguration configuration)
+        public static int GetDownloadCount(string vsixId, IStorageConfiguration configuration)
         {
             downloadCountFileLock.EnterReadLock();
             try
             {
-                return CoreGetDownloadCount(vsixId, vsixFile, configuration);
+                return CoreGetDownloadCount(vsixId, configuration);
             }
             finally
             {
@@ -102,10 +102,10 @@ namespace vsgallery.FileHelpers
             }
         }
 
-        private static int CoreGetDownloadCount(string vsixId, string vsixFile, IConfiguration configuration)
+        private static int CoreGetDownloadCount(string vsixId, IStorageConfiguration configuration)
         {
             try { 
-                string vsixDownloadCountPath = Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, "VSIXData", vsixId, "downloads.txt");
+                string vsixDownloadCountPath = Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, "VSIXData", vsixId, "downloads.txt");
 
                 int downloadCount = 0;
                 if (File.Exists(vsixDownloadCountPath))
@@ -123,12 +123,12 @@ namespace vsgallery.FileHelpers
             
         }
 
-        public static bool SetRating(string vsixId, float rating, IConfiguration configuration)
+        public static bool SetRating(string vsixId, float rating, IStorageConfiguration configuration)
         {
             ratingsFileLock.EnterWriteLock();
             try
             {
-                string vsixDownloadRatingPath = Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, "VSIXData", vsixId, "ratings.txt");
+                string vsixDownloadRatingPath = Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, "VSIXData", vsixId, "ratings.txt");
 
                 var ratingAndCount = CoreGetRating(vsixId, configuration);
 
@@ -155,7 +155,7 @@ namespace vsgallery.FileHelpers
             }
         }
 
-        public static Tuple<float, int> GetRating(string vsixId, IConfiguration configuration)
+        public static Tuple<float, int> GetRating(string vsixId, IStorageConfiguration configuration)
         {
             ratingsFileLock.EnterReadLock();
             try
@@ -168,11 +168,11 @@ namespace vsgallery.FileHelpers
             }
         }
 
-        private static Tuple<float, int> CoreGetRating(string vsixId, IConfiguration configuration)
+        private static Tuple<float, int> CoreGetRating(string vsixId, IStorageConfiguration configuration)
         {
             try
             {
-                string vsixDownloadRatingPath = Path.Combine(Environment.CurrentDirectory, configuration.Storage.VsixStorageDirectory, "VSIXData", vsixId, "ratings.txt");
+                string vsixDownloadRatingPath = Path.Combine(Environment.CurrentDirectory, configuration.VsixStorageDirectory, "VSIXData", vsixId, "ratings.txt");
                 if (File.Exists(vsixDownloadRatingPath))
                 {
                     // Attempt to read the download count, don't care if it fails really...
