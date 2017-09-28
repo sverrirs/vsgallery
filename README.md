@@ -1,8 +1,13 @@
 # Visual Studio Private Gallery
 
-Ultra simple self-hosted extension gallery for Visual Studio 2010 and newer. 
+Ultra simple Visual Studio extension Gallery implementation for Visual Studio 2010 and newer. 
+This solution provides a fully featured service for the Extension Gallery feature available in Microsoft Visual Studio.
 
-Offering a single click deployment and super easy configuration this solution provides a fully featured solution for the Extension Gallery feature available in Microsoft Visual Studio.
+1. Self-contained and Self-hosted 
+Offering a single Executable for an easy one click deployment and super easy configuration 
+
+2. IIS Hosted Asp WebApi Service
+Same Implementation as above only as an Asp.Net Web API implementation which can be hosted in an Microsoft IIS 
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/sverrirs/vsgallery/master/img/extension-manager-01.png" />
@@ -31,7 +36,7 @@ Tools > Options > Environment > Extensions and Updates
 
 Add a new entry and copy in the URL of the main Microservice Atom Feed.
 
-> By default the URL is `http://YOUR_SERVER:5100/feeds/atom.xml`
+> By default the URL for the self-hosted executable is `http://YOUR_SERVER:5100/feeds/atom.xml`
 
 Please consult [this MSDN document](https://msdn.microsoft.com/en-us/library/hh266746.aspx) for any further details and alternative options on how to install a Private Extension Gallery in Visual Studio.
 
@@ -95,6 +100,9 @@ curl -X POST
 
 ### [GET] /api/json
 JSON feed for the entire package catalog. Same data that is being fed through the atom feed but just in a handier JSON format.
+
+### [GET] /api/download/{vsix_id}/{vsix_Name}
+Retrieves a particular VSIX package by its VSIX ID and the VSIX Name.
 
 ### [POST/PUT] /api/upload
 This endpoint accepts form-data uploads of one or more .vsix files to the hosting service. 

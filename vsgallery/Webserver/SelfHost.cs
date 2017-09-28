@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using Nancy.Hosting.Self;
-using vsgallery.VsixFeed;
+
+using VsGallery.Core.VsixFeed;
+
 
 namespace vsgallery.Webserver
 {
@@ -9,7 +11,6 @@ namespace vsgallery.Webserver
     {
         private NancyHost _nancyHost;
         private readonly IConfiguration _config;
-        private string _vsixStoragePath;
         private VsixStorageWatcher _vsixStorageWatcher;
         private readonly SelfHostBootstrapper _bootstrapper;
 
@@ -32,8 +33,7 @@ namespace vsgallery.Webserver
                 $"http{(_config.Hosting.UseSSL ? "s" : "")}://{_config.Hosting.HostName}:{_config.Hosting.Port}"));
 
             // Create the VSIX feed
-            _vsixStoragePath = Path.Combine(Environment.CurrentDirectory, _config.Storage.VsixStorageDirectory);
-            _vsixStorageWatcher = new VsixStorageWatcher(_vsixStoragePath, _config.Storage, _config.Gallery);
+            _vsixStorageWatcher = new VsixStorageWatcher(_config.Storage, _config.Gallery);
             _vsixStorageWatcher.Start();
             _nancyHost.Start();
         }
