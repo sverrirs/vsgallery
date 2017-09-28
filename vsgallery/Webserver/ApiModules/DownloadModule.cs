@@ -3,7 +3,10 @@ using System.IO;
 using Nancy;
 using Nancy.Helpers;
 using Nancy.Responses;
-using vsgallery.FileHelpers;
+
+using VsGallery.Core;
+using VsGallery.Core.FileHelpers;
+
 
 namespace vsgallery.Webserver.ApiModules
 {

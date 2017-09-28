@@ -2,6 +2,7 @@
 using Nancy.Conventions;
 using Nancy.Diagnostics;
 using Nancy.TinyIoc;
+using VsGallery.Core;
 
 namespace vsgallery.Webserver
 {
@@ -23,6 +24,7 @@ namespace vsgallery.Webserver
             base.ConfigureApplicationContainer(container);
 
             container.Register<IConfiguration>(_configuration).WithStrongReference();
+            container.Register<IStorageConfiguration>(_configuration.Storage).WithStrongReference();
         }
 
         protected override DiagnosticsConfiguration DiagnosticsConfiguration

@@ -6,6 +6,9 @@ using System.Net.Http.Headers;
 using IniParser;
 using IniParser.Model;
 
+using VsGallery.Core;
+
+
 namespace vsgallery
 {
     public abstract class BaseConfiguration
@@ -115,22 +118,12 @@ namespace vsgallery
 
         public HostConfiguration(KeyDataCollection data) : base(data) { }
     }
-
-
     public interface IConfiguration
     {
         IHostConfiguration Hosting { get; }
         IStorageConfiguration Storage { get; }
         IInstallConfiguration Install { get; }
         IGalleryConfiguration Gallery { get; }
-    }
-
-    public interface IStorageConfiguration
-    {
-        string VsixStorageDirectory { get; }
-        string UploadDirectory { get; }
-        string UploadMaxFileSize { get; }
-
     }
 
     public interface IHostConfiguration
@@ -150,12 +143,4 @@ namespace vsgallery
         string ServiceName { get; }
     }
 
-    public interface IGalleryConfiguration
-    {
-        string Guid { get; }
-        string Title { get; }
-        string Description { get; }
-        bool TrackDownloads { get; }
-        bool TrackRatings { get; }
-    }
 }

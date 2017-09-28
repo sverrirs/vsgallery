@@ -2,7 +2,9 @@
 using System.IO;
 using Nancy;
 using Newtonsoft.Json;
-using vsgallery.FileHelpers;
+
+using VsGallery.Core.FileHelpers;
+
 
 namespace vsgallery.Webserver.ApiModules
 {
