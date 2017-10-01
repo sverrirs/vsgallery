@@ -32,9 +32,9 @@ Interested in the API? [View the API documentation](API.md).
 
 From the release page choose the latest version and download the appropriate release you are interested in.
 
-1. standalone.zip: For running vsgallery as a stand alone Windows/Linux service or console application. [View setup guide for stand-alone](SETUP StandAlone.md).
+1. standalone.zip: For running vsgallery as a stand alone Windows/Linux service or console application. [View setup guide for stand-alone](SETUP%20StandAlone.md).
 
-2. IIS.zip: For a Asp.NET Weg API implementation that can be hosted in a Microsoft IIS environment. [View setup guide for IIS](SETUP IIS.md).
+2. IIS.zip: For a Asp.NET Weg API implementation that can be hosted in a Microsoft IIS environment. [View setup guide for IIS](SETUP%20IIS.md).
 
 > Note: Currently this is under construction, separate release packages are being implemented.
 
