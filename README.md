@@ -65,3 +65,19 @@ This work is made possible by the fantastic job done on the following projects.
 [Ini-Parser](https://github.com/rickyah/ini-parser): Configuration ini file parsing
 
 [Costura](https://github.com/Fody/Costura/): Assembly merging
+
+
+## Contributing
+
+> Although this project is small it has a [code of conduct](CODE_OF_CONDUCT.md) that I hope everyone will do their best to follow when contributing to any aspects of this project. Be it discussions, issue reporting, documentation or programming. 
+
+If you don't want to open issues here on Github, send me your feedback by email at [vsgallery@sverrirs.com](mailto:vsgallery@sverrirs.com).
+
+1. Fork it ( https://github.com/sverrirs/vsgallery/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Test your changes locally by adding new and running the existing unit-tests
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
+
+Note: This project uses [semantic versioning](http://semver.org/).
