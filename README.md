@@ -10,7 +10,7 @@ Offering a single Executable for an easy one click deployment and super easy con
 Same Implementation as above only as an Asp.Net Web API implementation which can be hosted in an Microsoft IIS 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/sverrirs/vsgallery/master/img/extension-manager-01.png" />
+  <img src="Docu/img/extension-manager-01.png" alt="Visual Studio Extensions and Updates" />
 </p>
 
 See my blog for more details [blog.sverrirs.com](https://blog.sverrirs.com/2017/05/vs-selfhosted-extension-gallery.html)
