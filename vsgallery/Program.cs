@@ -24,9 +24,12 @@ namespace vsgallery
                 });
 
                 x.RunAsLocalSystem();
-                x.SetDescription("Self-Hosted Private Gallery for Visual Studio VSIX files");
-                x.SetDisplayName("Private Gallery Self-Host Service");
-                x.SetServiceName("Private-Gallery-SelfHost");
+                x.SetDescription(config.Install.Description ??
+                    "Self-Hosted Private Gallery for Visual Studio VSIX files");
+                x.SetDisplayName(config.Install.DisplayName ?? 
+                    "Private Gallery Self-Host Service");
+                x.SetServiceName(config.Install.ServiceName ?? 
+                    "Private-Gallery-SelfHost");
             });
 
             return 0;
