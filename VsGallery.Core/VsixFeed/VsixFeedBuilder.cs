@@ -81,7 +81,7 @@ namespace VsGallery.Core.VsixFeed
             {
                 Id = (_configGallery.Guid ?? Guid.NewGuid().ToString("D")).ToUpper(),
                 Title = new TextSyndicationContent(_configGallery.Title),
-                Generator = "VisxPrivateGallery (https://github.com/sverrirs/visxgallery)",
+                Generator = "VsixPrivateGallery (https://github.com/sverrirs/vsixgallery)",
                 Description = new TextSyndicationContent(_configGallery.Description, TextSyndicationContentKind.Plaintext),
                 LastUpdatedTime = DateTimeOffset.Now
             };

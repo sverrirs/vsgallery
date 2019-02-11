@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 
 using VsGallery.Core;
+using VsGallery.Core.FileHelpers;
 
 namespace VsGallery.WebService.Controllers
 {
@@ -48,8 +49,16 @@ namespace VsGallery.WebService.Controllers
                 // Save the uploaded file to "UploadedFiles" folder
                 httpFile.SaveAs(fileSavePath);
 
+                var newFileName = httpFile.FileName.Split(new[] {".vsix"}, StringSplitOptions.None)[0] +
+                                  DateTime.UtcNow.ToString("yyyyMMdd").Replace("-", "");
+
+                var iteration = Directory.EnumerateFiles(_configuration.VsixStorageDirectory)
+                                    .Count(x => x.Split('\\').Last().StartsWith(newFileName,
+                                        StringComparison.OrdinalIgnoreCase)) + 1;
+
                 // Now move all the files uploaded to the main storage directory
-                File.Move(fileSavePath, Path.Combine(_configuration.VsixStorageDirectory, httpFile.FileName));
+                File.Move(fileSavePath,
+                    Path.Combine(_configuration.VsixStorageDirectory, $"{newFileName}{iteration}.vsix"));
             }
 
             return Ok();
