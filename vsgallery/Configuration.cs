@@ -101,6 +101,7 @@ namespace vsgallery
         public string VsixStorageDirectory => Get<string>(nameof(VsixStorageDirectory));
         public string UploadDirectory => Get<string>(nameof(UploadDirectory));
         public string UploadMaxFileSize => Get<string>(nameof(UploadMaxFileSize));
+        public bool OverwriteFiles => Get<bool>(nameof(OverwriteFiles));
 
         public StorageConfiguration(KeyDataCollection data) : base(data) { }
     }

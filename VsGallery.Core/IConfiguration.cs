@@ -5,7 +5,7 @@
         string VsixStorageDirectory { get; }
         string UploadDirectory { get; }
         string UploadMaxFileSize { get; }
-
+        bool OverwriteFiles { get; }
     }
 
     public interface IGalleryConfiguration
