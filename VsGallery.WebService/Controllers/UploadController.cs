@@ -13,11 +13,13 @@ namespace VsGallery.WebService.Controllers
 {
     public class UploadController : ApiController
     {
-        private IStorageConfiguration _configuration;
+        private IStorageConfiguration _storage;
+        private IGalleryConfiguration _gallery;
 
         public UploadController()
         {
-            _configuration = WebService.Configuration.Instance.Storage;
+            _storage = WebService.Configuration.Instance.Storage;
+            _gallery = WebService.Configuration.Instance.Gallery;
         }
 
 
@@ -26,8 +28,12 @@ namespace VsGallery.WebService.Controllers
         /// </summary>
         [HttpPost]
         [HttpPut]
-        public IHttpActionResult AddOrUpdateVsix()
+        [Route("api/upload/{*key}")]
+        public IHttpActionResult AddOrUpdateVsix(string key)
         {
+            if (!string.IsNullOrEmpty(_gallery.UploadKey) && key != _gallery.UploadKey)
+                return BadRequest("Invalid Key");
+
             // Get the uploaded image from the Files collection
             var requestFiles = HttpContext.Current.Request.Files;
             var httpFiles = Enumerable.Range(0, requestFiles.Count).Select(i => requestFiles[i]).ToList();
@@ -43,13 +49,13 @@ namespace VsGallery.WebService.Controllers
             // Get the complete file path
             foreach(var httpFile in httpFiles)
             {
-                var fileSavePath = Path.Combine(_configuration.UploadDirectory, httpFile.FileName);
+                var fileSavePath = Path.Combine(_storage.UploadDirectory, httpFile.FileName);
 
                 // Save the uploaded file to "UploadedFiles" folder
                 httpFile.SaveAs(fileSavePath);
 
                 // Now move all the files uploaded to the main storage directory
-                File.Move(fileSavePath, Path.Combine(_configuration.VsixStorageDirectory, httpFile.FileName));
+                File.Move(fileSavePath, Path.Combine(_storage.VsixStorageDirectory, httpFile.FileName));
             }
 
             return Ok();

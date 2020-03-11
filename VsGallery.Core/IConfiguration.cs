@@ -15,5 +15,6 @@
         string Description { get; }
         bool TrackDownloads { get; }
         bool TrackRatings { get; }
+        string UploadKey { get; }
     }
 }

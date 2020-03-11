@@ -82,6 +82,7 @@ namespace vsgallery
         public string Description => Get<string>(nameof(Description));
         public bool TrackDownloads => Get<bool>(nameof(TrackDownloads));
         public bool TrackRatings => Get<bool>(nameof(TrackRatings));
+        public string UploadKey => Get<string>(nameof(UploadKey));
     }
 
 

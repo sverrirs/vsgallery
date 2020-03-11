@@ -65,3 +65,11 @@ curl -X POST
      --form "file1=@your.vsix" 
      http://VSGALLERY_SERVER:5100/api/upload
 ```
+
+To upload a file to the gallery server that requires an upload key
+
+```
+curl -X POST 
+     --form "file=@my.vsix;filename=renamed.vsix" 
+     http://VSGALLERY_SERVER:5100/api/upload/API_KEY
+```
