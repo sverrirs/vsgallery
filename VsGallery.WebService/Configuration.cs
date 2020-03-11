@@ -59,6 +59,20 @@ namespace VsGallery.WebService
                 this[uploadMaxFileSizePropertyName] = value;
             }
         }
+
+        const string overwriteFilesPropertyName = "OverwriteFiles";
+        [ConfigurationProperty(overwriteFilesPropertyName, DefaultValue = "false", IsRequired = false)]
+        public bool OverwriteFiles
+        {
+            get
+            {
+                return (Boolean)this[overwriteFilesPropertyName];
+            }
+            set
+            {
+                this[overwriteFilesPropertyName] = value;
+            }
+        }
     }
 
     public class GalleryConfiguration : ConfigurationElement, IGalleryConfiguration

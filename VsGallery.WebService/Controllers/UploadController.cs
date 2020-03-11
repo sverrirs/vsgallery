@@ -41,15 +41,25 @@ namespace VsGallery.WebService.Controllers
             // Validate the uploaded image(optional)
 
             // Get the complete file path
-            foreach(var httpFile in httpFiles)
+            foreach (var httpFile in httpFiles)
             {
                 var fileSavePath = Path.Combine(_configuration.UploadDirectory, httpFile.FileName);
+
+                var destinationPath = Path.Combine(_configuration.VsixStorageDirectory, httpFile.FileName);
+
+                if (File.Exists(destinationPath))
+                {
+                    if (!_configuration.OverwriteFiles)
+                        return BadRequest($"File {httpFile.FileName} already exists.");
+
+                    File.Delete(destinationPath);
+                }
 
                 // Save the uploaded file to "UploadedFiles" folder
                 httpFile.SaveAs(fileSavePath);
 
                 // Now move all the files uploaded to the main storage directory
-                File.Move(fileSavePath, Path.Combine(_configuration.VsixStorageDirectory, httpFile.FileName));
+                File.Move(fileSavePath, destinationPath);
             }
 
             return Ok();
