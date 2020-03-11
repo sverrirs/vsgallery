@@ -83,6 +83,14 @@ The Gallery Settings like Storage location and some Gallery Configuration can be
 
 the `~` in the derectory configuration means Web Application root directory.
 
+To require a key to upload packages set the `UploadKey` for the gallery
+
+```
+    <VsGallerySettings>
+        <Storage VsixStorageDirectory="~/App_Data/VsixStorage" UploadDirectory="~/App_Data/VsixUploads" />
+        <Gallery Guid="54F7969C-F561-4B16-9D6B-7325EDE0A3C1" Title="Super Productive Gallery" TrackDownloads="True" TrackRatings="True" UploadKey="nXqjCmD5t6xr5nFEKZ3UgONQWUZYJf9G" />
+    </VsGallerySettings>
+```
 
 The default local physical structure
  `.vsix` files, along with their download counts and ratings data are stored in a subfolder of the main service executable `VsixStorage/` (this subfolder is configurable). This makes taking backups and moving the service between machines super easy as the root folder contains the entire Microservice state and data.

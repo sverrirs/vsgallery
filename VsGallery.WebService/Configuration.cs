@@ -132,6 +132,20 @@ namespace VsGallery.WebService
                 this[trackRatingsPropertyName] = value;
             }
         }
+
+        const string uploadKeyPropertyName = "UploadKey";
+        [ConfigurationProperty(uploadKeyPropertyName, DefaultValue = "", IsRequired = false)]
+        public string UploadKey
+        {
+            get
+            {
+                return this[uploadKeyPropertyName] as string;
+            }
+            set
+            {
+                this[uploadKeyPropertyName] = value;
+            }
+        }
     }
 
     public class Configuration : ConfigurationSection, IConfiguration
